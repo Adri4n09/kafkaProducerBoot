@@ -14,36 +14,41 @@ import java.util.stream.IntStream;
 public class KafkaProducerBootApplication {
 
 	private static Scanner in;
-	private static final String topicName = "test13";
+	private static final String topicName = "test15";
 	private static MessageSender messageSender;
 
 
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(KafkaProducerBootApplication.class, args);
 		ApplicationContext context = new AnnotationConfigApplicationContext(ProducerConfiguration.class);
-		messageSender = (MessageSender) context.getBean("messageSender");
-		runProducer();
+	//	messageSender = (MessageSender) context.getBean("messageSender");
+	//	runProducer();
 	}
 
-	private static void runProducer() throws IOException {
-		in = new Scanner(System.in);
-		System.out.println("Enter message(type exit to quit)");
-		String line = in.nextLine();
-		ObjectMapper objectMapper = new ObjectMapper();
-
-		while (!line.equals("exit")) {
-			line = in.nextLine();
-			if (line.equals("n")) {
-				IntStream.range(0,100).forEach((i) -> {
-					try {
-						messageSender.send(objectMapper.writeValueAsString(BookGenerator.getRandomBook()), topicName);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				});
-			}
-		}
-	}
+//	private static void runProducer() throws IOException {
+//		in = new Scanner(System.in);
+//		System.out.println("Enter message(type exit to quit)");
+//		String line = in.nextLine();
+//		ObjectMapper objectMapper = new ObjectMapper();
+//
+//		while (!line.equals("exit")) {
+//			line = in.nextLine();
+//			if (line.equals("books")) {
+//				IntStream.range(0,100000).forEach((i) -> {
+//					try {
+//						messageSender.send(objectMapper.writeValueAsString(BookGenerator.getRandomBook()), topicName);
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//				});
+//				IntStream.range(0,100000).forEach((i) -> {
+//						messageSender.send("exit", topicName);
+//				});
+//			} else {
+//				messageSender.send(line, topicName);
+//			}
+//		}
+//	}
 }
 
 //TODO: 1. Make an model book

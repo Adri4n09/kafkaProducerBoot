@@ -3,13 +3,24 @@ package com.example;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
 import java.util.Properties;
 
 @Configuration
+@PropertySource("classpath:kafka.properties")
 public class ProducerConfiguration {
+
+    @Value("${kafka.server}")
+    private String SERVER_CONFIG;
+    @Value("${kafka.key.serializer}")
+    private String KEY_SERIALIZER;
+    @Value("${kafka.value.serializer}")
+    private String VALUE_SERIALIZER;
+
 
     @Bean
     public Producer producer() {
@@ -18,9 +29,9 @@ public class ProducerConfiguration {
 
     private Properties config() {
         Properties configProp = new Properties();
-        configProp.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-        configProp.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.ByteArraySerializer");
-        configProp.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, "org.apache.kafka.common.serialization.StringSerializer");
+        configProp.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, SERVER_CONFIG);
+        configProp.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, KEY_SERIALIZER);
+        configProp.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, VALUE_SERIALIZER);
         configProp.put(ProducerConfig.ACKS_CONFIG, "all");
         return configProp;
     }
