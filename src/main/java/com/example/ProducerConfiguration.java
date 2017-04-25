@@ -1,5 +1,7 @@
 package com.example;
 
+import com.example.event.BookEventSender;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -39,5 +41,15 @@ public class ProducerConfiguration {
     @Bean
     public MessageSender messageSender() {
         return new MessageSender();
+    }
+
+    @Bean
+    public BookEventSender bookEventSender() {
+        return new BookEventSender();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 }
