@@ -1,12 +1,12 @@
 package com.example;
 
-import com.example.event.BookEventSender;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
@@ -14,6 +14,7 @@ import java.util.Properties;
 
 @Configuration
 @PropertySource("classpath:kafka.properties")
+@ComponentScan("com.example")
 public class ProducerConfiguration {
 
     @Value("${kafka.server}")
@@ -36,16 +37,6 @@ public class ProducerConfiguration {
         configProp.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, VALUE_SERIALIZER);
         configProp.put(ProducerConfig.ACKS_CONFIG, "all");
         return configProp;
-    }
-
-    @Bean
-    public MessageSender messageSender() {
-        return new MessageSender();
-    }
-
-    @Bean
-    public BookEventSender bookEventSender() {
-        return new BookEventSender();
     }
 
     @Bean
