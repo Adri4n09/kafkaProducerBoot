@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.event.BookEventSender;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -24,7 +25,6 @@ public class ProducerConfiguration {
     @Value("${kafka.value.serializer}")
     private String VALUE_SERIALIZER;
 
-
     @Bean
     public Producer producer() {
         return new KafkaProducer(config());
@@ -42,5 +42,20 @@ public class ProducerConfiguration {
     @Bean
     public ObjectMapper objectMapper() {
         return new ObjectMapper();
+    }
+
+    @Bean
+    public ConsoleProducer consoleProducer() {
+        return new ConsoleProducer();
+    }
+
+    @Bean
+    public BookEventSender bookEventSender() {
+        return new BookEventSender();
+    }
+
+    @Bean
+    public MessageSender messageSender() {
+        return new MessageSender();
     }
 }

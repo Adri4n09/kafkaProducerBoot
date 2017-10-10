@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class BookEventSender {
 
-    @Value("${kafka.book.topic}")
+    @Value("${kafka.other.topic}")
     private String booksTopic;
 
     @Autowired

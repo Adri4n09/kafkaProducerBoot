@@ -31,7 +31,7 @@ public class ConsoleProducer {
         while (!line.equals("exit")) {
             line = in.nextLine();
             if (line.equals("randomBooks")) {
-                IntStream.range(0,1000).forEach((i) -> {
+                IntStream.range(0,10000).forEach((i) -> {
                     try {
                         bookEventSender.sendRandomBookEvent();
                     } catch (IOException e) {
